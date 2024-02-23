@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,21 +18,37 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+//=========================Dashboard=========================//
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+//==========================================================//
+
+
+
+
+//=========================Clients=========================//
 Route::get('/clients', function () {
     return view('clients');
 })->middleware(['auth', 'verified'])->name('clients');
+//==========================================================//
+
+
+
+
+//=========================Support=========================//
 Route::get('/support', function () {
     return view('support');
 })->middleware(['auth', 'verified'])->name('support');
-Route::get('/schedule', function () {
-    return view('schedule');
-})->middleware(['auth', 'verified'])->name('schedule');
+//==========================================================//
 
 
+
+
+//=========================Schedule=========================//
+Route::get('/schedule', [ScheduleController::class, 'schedule'])->name('schedule');
+Route::post('/setSched', [ScheduleController::class, 'setSchedule']);
+//==========================================================//
 
 
 Route::middleware('auth')->group(function () {
