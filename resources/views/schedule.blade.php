@@ -27,7 +27,10 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                             Schedule a Tech
                         </button></div><br>
-                      <table class="table table-hover   ">
+                        @if(isset($weekRange))
+                        <p>Week range: {{ $weekRange[0] }} to {{ $weekRange[1] }}</p><br>
+
+                      <table class="table table-hover">
                         <thead style="background:#111827">
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
@@ -42,29 +45,35 @@
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user )
+
+                            @foreach ($users as $user)
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>{{ $user->name }}</td>
+
+                            @foreach ($user->weeklySchedules()->where('week_start_date', $weekRange[0])->get() as $user)
                             @foreach ($user->schedules as $schedule)
 
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>{{$user->name}}</td>
-                            <td>{{$schedule->mon}}</td>
-                            <td>{{$schedule->tue}}</td>
-                            <td>{{$schedule->wed}}</td>
-                            <td>{{$schedule->thu}}</td>
-                            <td>{{$schedule->fri}}</td>
-                            <td>{{$schedule->sat}}</td>
-                            <td>{{$schedule->sun}}</td>
-                            <td>Edit</td>
-                          </tr>
-                          @endforeach
-                          @endforeach
-                        </tbody>
-                      </table>
+                        <td>{{ $schedule->mon }}</td>
+                        <td>{{ $schedule->tue }}</td>
+                        <td>{{ $schedule->wed }}</td>
+                        <td>{{ $schedule->thu }}</td>
+                        <td>{{ $schedule->fri }}</td>
+                        <td>{{ $schedule->sat }}</td>
+                        <td>{{ $schedule->sun }}</td>
+                        <td>Edit</td>
+                    </tr>
+                    @endforeach
+                @endforeach
+            @endforeach
+        </tbody>
+    </table>
+@endif
                 </div>
             </div>
         </div>
     </div>
+
 </x-app-layout>
     <div class="modal" id="myModal">
         <div class="modal-dialog">
@@ -88,6 +97,19 @@
                                 @endforeach
                             </select>
                         </div><br>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="scheduleOption" id="thisWeekRadio" value="thisWeek" checked>
+                            <label class="form-check-label" for="thisWeekRadio">
+                              Create schedule for this week
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="scheduleOption" id="nextWeekRadio" value="nextWeek">
+                            <label class="form-check-label" for="nextWeekRadio">
+                              Create schedule for next week
+                            </label>
+                          </div>
+                        <br>
                         <table class="table">
                             <thead class="thead-light">
                             <tr>
