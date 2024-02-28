@@ -74,14 +74,14 @@ class ScheduleController extends Controller
                     }
 
                     return view('Schedule', ['users' => $users, 'sites' => $sites, 'weekRange' => $weekRange]);
-                }
-     private function insert($request, $week, $weekEnd){
+    }
+     private function insert($request, $week, $weekEnd)
+    {
         $weeklySchedule = WeeklySchedule::create([
             'user_id'=>$request->tech,
             'week_start_date' => $week,
             'week_end_date' => $weekEnd,
         ]);
-
         $schedule = Schedule::create([
             'user_id'=>$request->tech,
             'weekly_schedule_id' => $weeklySchedule->id,
@@ -94,6 +94,11 @@ class ScheduleController extends Controller
             'sun'=>$request->sun,
 
         ]);
+
+    }
+    public function edit(Request $request)
+    {
+        $user = User::find($request->id);
 
     }
     }

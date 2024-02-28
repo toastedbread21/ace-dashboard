@@ -48,6 +48,7 @@ Route::get('/support', function () {
 //=========================Schedule=========================//
 Route::get('/schedule', [ScheduleController::class, 'schedule'])->name('schedule');
 Route::post('/setSched', [ScheduleController::class, 'setSchedule']);
+Route::get('edit/{id}', [ScheduleController::class, 'edit'])->name('edit');
 //==========================================================//
 
 

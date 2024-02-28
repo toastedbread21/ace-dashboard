@@ -61,7 +61,7 @@
                         <td>{{ $schedule->fri }}</td>
                         <td>{{ $schedule->sat }}</td>
                         <td>{{ $schedule->sun }}</td>
-                        <td>Edit</td>
+                        <td><a href="/edit/{{$user->user_id}}"><img src="{{ asset('images/edit.svg') }}" alt="edit" style="width: 30px; height: 30px;"></a></td>
                     </tr>
                     @endforeach
                 @endforeach
